@@ -56,6 +56,25 @@ function Home() {
         setLoad(false);
     }
 
+    let[selectedImage, setSelectedImage] = useState([]);
+
+    let multiSelect = (elem)=>
+    {
+       
+        setSelectedImage((preVal)=>
+        {
+            if(preVal.includes(elem))
+            {
+                return preVal.filter((i)=> i !== elem);
+            }
+            else
+            {
+                return [...preVal, elem];
+            }
+        });
+
+    }
+
     return (
         <div className='row m-0 p-0' style={{height: "100vh"}}>
             <Sidebar />
@@ -64,7 +83,7 @@ function Home() {
 
                 {/* banner */}
                 <div className="alert alert-primary " role="alert">
-                    Top Searches: {topList.length >0 ? topList.map((i, index)=>(<span>{i}, </span>)) : "No Searches"}
+                    Top Searches: {imageList.length >0 && topList.length >0 ? topList.map((i, index)=>(<span>{i}, </span>)) : "No Searches"}
                 </div>
 
                 {/* search */}
@@ -75,19 +94,19 @@ function Home() {
                     </form>
 
                    {imageList.length > 0 ? <p>Your search for {searchTitle} - {imageList.length}</p> : null}
-
+                    <span className='bg-warning p-2 m-2 rounded'>Selected: {selectedImage.length}</span>
                 </div>
 
                 {/* cards */}
                 <div className='row m-0 p-0 mt-3 justify-content-center ' style={{height: "70vh", textAlign: "justify", whiteSpace: "break-spaces", overflowY: "auto", overflowX: "hidden"}}>
                     {!load && imageList.length <= 0 && sample.map((i, index)=>
                     (
-                        <Card unId={index} imageUrl={i}/>
+                        <Card unId={index} imageUrl={i} isSelected={selectedImage.includes(index) ? true: false} onToggle={()=>multiSelect(index)}/>
                     ))}
                     {load ? <CardLoading /> : null}
                     {!load && imageList.length >0 && imageList.map((i, index)=>
                     (
-                        <Card unId={index} imageUrl={i.urls.regular}/>
+                        <Card unId={index} imageUrl={i.urls.regular} isSelected={selectedImage.includes(index) ? true: false} onToggle={()=>multiSelect(index)} />
                     ))}
                     
                     

@@ -2,17 +2,27 @@ import React from 'react'
 
 function Card(props) {
 
-    console.log("img:",props.imageUrl)
+    console.log("img:", props.imageUrl)
     return (
-        
 
-            <div key={props.unId} className="card col-4 bg-dark p-0 m-3" style={{width: "18rem"}}>
-                <img src={props.imageUrl.toString()} className="card-img m-0 p-0" alt="..."/>
-                    {/* <div class="card-body">
+
+        <div key={props.unId} className="card col-4 bg-dark p-0 m-3" style={{ width: "18rem" }}>
+            <img src={props.imageUrl.toString()} className="card-img m-0 p-0" alt="..." />
+            {/* <div class="card-body">
                         <p class="card-text"></p>
                     </div> */}
+
+            <div className='position-absolute top-0 end-0 '>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkDefault" checked={props.isSelected } onClick={props.onToggle} />
+                {/* <label class="form-check-label" for="checkDefault">
+                    Default checkbox
+                </label> */}
             </div>
-        
+            </div>
+
+        </div>
+
     )
 }
 
