@@ -34,3 +34,64 @@ passport.use(new GoogleStrategy({
     // });
   }
 ));
+
+
+// facebook
+
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "/ImageBuddy/api/auth/facebook/callback"
+  },
+  async(accessToken, refreshToken, profile, cb)=> {
+    try {
+        let user = await User.findOne({ facebookId: profile.id });
+
+        if(!user)//does not exist
+                {
+                    user = await User.create({
+                        name: profile.displayName,
+                        email: profile.emails[0].value,
+                        facebookId: profile.id,
+                        history:[],
+                    });
+                }
+                return cb(null, user);
+
+    } catch (error) {
+        return cb(error, null);   
+    }
+
+  }
+));
+
+
+// github
+
+passport.use(new GitHubStrategy({
+    clientID: GITHUB_CLIENT_ID,
+    clientSecret: GITHUB_CLIENT_SECRET,
+    callbackURL: "/ImageBuddy/api/auth/github/callback"
+  },
+  async(accessToken, refreshToken, profile, cb)=> {
+    try {
+        
+        let user = await User.find({ githubId: profile.id });
+
+    if(!user)//does not exist
+                {
+                    user = await User.create({
+                        name: profile.displayName,
+                        email: profile.emails[0].value,
+                        githubId: profile.id,
+                        history:[],
+                    });
+                }
+                return cb(null, user);
+
+    } catch (error) {
+        return cb(error, null);   
+    }
+
+  }
+));

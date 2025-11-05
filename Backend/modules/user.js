@@ -10,6 +10,12 @@ const userSchema = mongoose.Schema({
     googleId: {
         type: String
     },
+    facebookId: {
+        type: String
+    },
+    githubId: {
+        type: String
+    },
     history: [
         {
             type: mongoose.Schema.Types.ObjectId,

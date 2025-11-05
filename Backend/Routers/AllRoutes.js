@@ -40,15 +40,7 @@ router.route("/topSearch")
             for (const [key, value] of myMap) {
                 al.push(new Pair(key, value));
             }
-            // Create an array of Pair objects
-            //   const al = [
-            //     new Pair(1, 50),
-            //     new Pair(2, 30),
-            //     new Pair(3, 40),
-            //     new Pair(4, 20)
-            //   ];
-
-            // Sort the array in descending order of value (like compareTo in Java)
+            
             al.sort((a, b) => b.value - a.value);
 
             let count = 0;
@@ -62,12 +54,7 @@ router.route("/topSearch")
                     break;
                 }
                 al2.push(i.key);
-                // for(let k of allSearche)
-                // {
-                //     if (i.key.equals(k._id)) {
-                //         al2.push(k.team);
-                //     }
-                // }
+                
             }
             console.log("al2:", al2);
             return res.status(200).json({ message: al2 });

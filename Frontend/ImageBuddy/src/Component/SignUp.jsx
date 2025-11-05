@@ -32,7 +32,7 @@ function SignUp() {
 
                     {/* <!-- Submit button --> */}
                     <div className='mb-2'>
-                        <button type="button " onClick={()=>window.open('http://localhost:8080/ImageBuddy/api/auth/google')}     style={{ width: "100%" }} className="btn btn-primary btn-block ">
+                        <button type="button " onClick={()=>window.open('http://localhost:8080/ImageBuddy/api/auth/facebook')}     style={{ width: "100%" }} className="btn btn-primary btn-block ">
                         <i className="fab fa-facebook-f"></i> SignUp with Facebook
                         </button>
                     </div>
@@ -42,7 +42,7 @@ function SignUp() {
                         </button>
                     </div>
                     <div className='mb-2'>
-                        <button type="button" style={{ width: "100%" }} className="btn btn-dark btn-block ">
+                        <button type="button" onClick={()=>window.open('http://localhost:8080/ImageBuddy/api/auth/github')}  style={{ width: "100%" }} className="btn btn-dark btn-block ">
                             <i className="fab fa-github"></i> SignUp with Github
                         </button>
                     </div>
