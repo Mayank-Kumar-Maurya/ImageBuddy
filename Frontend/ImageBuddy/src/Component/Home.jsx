@@ -3,14 +3,16 @@ import Sidebar from './Sidebar'
 import Card from './Card'
 import Server from '../Context/Server.js';
 import CardLoading from './CardLoading.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
     const [search, setSearch] = useState("");
     const [searchTitle, setSearchTitle] = useState("");
-    const {imageList, searchImage, topSearches} = useContext(Server);
+    const {imageList, searchImage, topSearches, token} = useContext(Server);
     let [load, setLoad] = useState(false);
     let [topList, setTopList] = useState([]);
+    let navigate = useNavigate();
 
     let sample = [
         "https://images.unsplash.com/photo-1560847809-8a818fb8045f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MjQ5NTV8MHwxfHNlYXJjaHwzfHxSb3lhbCUyMGVuZmllbGR8ZW58MHx8fHwxNzYyMDk5MDkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -43,6 +45,12 @@ function Home() {
     {
         e.preventDefault();
         setLoad(true);
+        if(!token)
+        {
+            alert("Your are not login, login first");
+            navigate("/signIn");
+            return;
+        }
         if(search.length <= 0)
         {
             alert("search box is empty");
@@ -79,7 +87,7 @@ function Home() {
         <div className='row m-0 p-0' style={{height: "100vh"}}>
             <Sidebar />
 
-            <div className='bg- p-5' style={{ width: "80%" }}>
+            <div className='bg- p-4' style={{ width: "80%" }}>
 
                 {/* banner */}
                 <div className="alert alert-primary " role="alert">
@@ -98,7 +106,7 @@ function Home() {
                 </div>
 
                 {/* cards */}
-                <div className='row m-0 p-0 mt-3 justify-content-center ' style={{height: "70vh", textAlign: "justify", whiteSpace: "break-spaces", overflowY: "auto", overflowX: "hidden"}}>
+                <div className='row m-0 p-0 mt-3 justify-content-center ' style={{height: "60vh", textAlign: "justify", whiteSpace: "break-spaces", overflowY: "auto", overflowX: "hidden"}}>
                     {!load && imageList.length <= 0 && sample.map((i, index)=>
                     (
                         <Card unId={index} imageUrl={i} isSelected={selectedImage.includes(index) ? true: false} onToggle={()=>multiSelect(index)}/>

@@ -70,10 +70,11 @@ router.route("/history/")
     .post(async (req, res) => {
         let { id } = req.body;
         let history = await User.findById(id).populate("history");
-        console.log("hist", history);
+        // console.log("hist", history);
         if (!history) {
             return res.status(401).json({ message: "UnAuthorized" });
         }
+        history.history.reverse();
         return res.status(200).json({ message: history.history });
     });
 
@@ -88,7 +89,7 @@ router.route("/search/:id")
 
             let { id } = req.params || res.locals.currentUser;
             let insertInUser = await User.find({ _id: id });
-            console.log(insertInUser)
+            // console.log(insertInUser)
             if (insertInUser.length <= 0) {
                 return res.status(401).json({ message: "Wrong ID" });
             }
@@ -112,7 +113,7 @@ router.route("/search/:id")
                 }
             });
 
-            console.log("Api res", ApiRes.data);
+            // console.log("Api res", ApiRes.data);
             res.status(200).json(ApiRes.data.results);
         } catch (error) {
             console.log(error);

@@ -42,7 +42,7 @@ function Sidebar() {
             <h6>History</h6>
             {/* <button className='btn btn-dark' onClick={callHist}>Hist</button> */}
             {hist ? <>
-              <ul>
+              <ul style={{height: "40vh", textAlign: "justify", whiteSpace: "break-spaces", overflowY: "auto", overflowX: "hidden"}}>
               {hist.map((i, index) =>
               (
                 <li key={index}>{i.team} Time: {moment(i.timestamp).format("DD/MM/YY")}</li>

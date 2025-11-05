@@ -48,8 +48,8 @@ router.get("/google/callback", passport.authenticate("google", { session: false 
 router.get('/facebook',
     passport.authenticate('facebook'));
 
-    router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }),
-    (req, res)=> {
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }),
+    (req, res) => {
         // Successful authentication, redirect home.
 
         try {
@@ -68,12 +68,12 @@ router.get('/facebook',
 
 // github
 
-app.get('/github',
-    passport.authenticate('github', { scope: [ 'user:email' ] }));
-   
-  app.get('/github/callback', 
+router.get('/github',
+    passport.authenticate('github', { scope: ['user:email'] }));
+
+router.get('/github/callback',
     passport.authenticate('github', { failureRedirect: '/' }),
-    (req, res)=> {
+    (req, res) => {
         // Successful authentication, redirect home.
 
         try {
@@ -86,6 +86,7 @@ app.get('/github',
         } catch (error) {
             console.log("err at callback google: ", error);
             res.redirect(`${process.env.FRONTEND_URL}/signIn`)
-        }});
+        }
+    });
 
 module.exports = router;

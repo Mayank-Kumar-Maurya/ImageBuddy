@@ -1,5 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
+const GitHubStrategy = require("passport-github2").Strategy;
 const User = require("../modules/user.js")
  
 passport.use(new GoogleStrategy({
@@ -39,8 +41,8 @@ passport.use(new GoogleStrategy({
 // facebook
 
 passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "/ImageBuddy/api/auth/facebook/callback"
   },
   async(accessToken, refreshToken, profile, cb)=> {
@@ -69,8 +71,8 @@ passport.use(new FacebookStrategy({
 // github
 
 passport.use(new GitHubStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_CLIENT_SECRET,
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "/ImageBuddy/api/auth/github/callback"
   },
   async(accessToken, refreshToken, profile, cb)=> {
